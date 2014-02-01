@@ -1,6 +1,7 @@
 API
 ---
 
-.. doxygenfile:: engine.h
+.. doxygenclass:: Ygg::Engine
    :project: yggdrasil
+   :members:
 
