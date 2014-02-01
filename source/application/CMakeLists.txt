@@ -17,6 +17,11 @@ target_link_libraries(yggdrasil ${SDL_LIBRARIES})
 if(MSVC)
 	add_custom_command(TARGET yggdrasil POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different
-		"${SDL_LIBRARY_DIRS}/SDL2.dll"
+		"${WINDOWS_LIB_DIR}/sdl/lib/SDL2.dll"
+		$<TARGET_FILE_DIR:yggdrasil>)
+		
+	add_custom_command(TARGET yggdrasil POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different
+		"${WINDOWS_LIB_DIR}/assimp/lib/Assimp64.dll"
 		$<TARGET_FILE_DIR:yggdrasil>)
 endif()
