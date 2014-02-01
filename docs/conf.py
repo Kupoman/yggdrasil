@@ -265,3 +265,8 @@ texinfo_documents = [
 # -- Options for Breathe ------------------------------------------------
 breathe_projects = {'yggdrasil': os.path.abspath('./doxy/xml/') }
 breath_default_project = 'yggdrasil'
+
+# Run doxygen
+from subprocess import call
+call('doxygen')
+del call
