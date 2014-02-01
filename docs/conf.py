@@ -20,6 +20,7 @@ import os
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
+sys.path.append(os.path.abspath('./ext/'))
 
 # -- General configuration ------------------------------------------------
 
@@ -31,6 +32,7 @@ import os
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'breathe',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -259,3 +261,7 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
+
+# -- Options for Breathe ------------------------------------------------
+breathe_projects = {'yggdrasil': os.path.abspath('./doxy/xml/') }
+breath_default_project = 'yggdrasil'
