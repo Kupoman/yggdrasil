@@ -5,3 +5,6 @@ API
    :project: yggdrasil
    :members:
 
+.. doxygenclass:: Ygg::System
+	:project: yggdrasil
+	:members:
