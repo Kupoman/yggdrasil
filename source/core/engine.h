@@ -5,7 +5,11 @@
  * @file engine.h
  */
 
+#include <vector>
+
 namespace Ygg {
+
+class System;
 
 /**
  * The core engine.
@@ -18,6 +22,15 @@ public:
 	 * @param dt the timestep
 	 */
 	void Update(float dt);
+
+	/**
+	 * Add a System to the engine.
+	 * @param system the system to add
+	 */
+	void AddSystem(System *system);
+
+private:
+	std::vector<System*> m_systems;
 };
 
 } // end namespace
