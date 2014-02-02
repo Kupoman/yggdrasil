@@ -18,7 +18,7 @@ int main(int argc, char **argv)
 		SDL_WINDOWPOS_UNDEFINED,
 		800,
 		600,
-		SDL_WINDOW_OPENGL /* SDL_WINDOW_OPENGL is required to setup an OpenGL context */
+		SDL_WINDOW_SHOWN
 		);
 
 	if (window == NULL) {
