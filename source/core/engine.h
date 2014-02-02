@@ -12,12 +12,12 @@ namespace Ygg {
  */
 class Engine
 {
-	public:
-		/**
-		 * Step the engine.
-		 * @param dt the timestep
-		 */
-		void Update(float dt);
+public:
+	/**
+	 * Step the engine.
+	 * @param dt the timestep
+	 */
+	void Update(float dt);
 };
 
 } // end namespace
