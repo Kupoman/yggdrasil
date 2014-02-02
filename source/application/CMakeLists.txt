@@ -1,7 +1,7 @@
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/..)
 
 add_executable(yggdrasil main.cpp)
-target_link_libraries(yggdrasil core ${SDL_LIBRARIES})
+target_link_libraries(yggdrasil core ${SDL2_LIBRARIES})
 
 # Copy DLLS
 if(MSVC)

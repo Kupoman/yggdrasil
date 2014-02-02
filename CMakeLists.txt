@@ -5,13 +5,14 @@ set(WINDOWS_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../lib)
 
 # SDL
 if(MSVC)
-	set(SDL_INCLUDE_DIRS ${WINDOWS_LIB_DIR}/sdl/include)
+	set(SDL_2_INCLUDE_DIRS ${WINDOWS_LIB_DIR}/sdl/include)
 	set(SDL_LIBRARY_DIRS ${WINDOWS_LIB_DIR}/sdl/lib)
-	set(SDL_LIBRARIES SDL2.lib SDL2main.lib SDL2test.lib)
+	set(SDL2_LIBRARIES SDL2.lib SDL2main.lib SDL2test.lib)
 else()
-	find_package(SDL2 REQUIRED)
+	include(FindPkgConfig)
+	pkg_search_module(SDL2 REQUIRED sdl2)
 endif()
-include_directories(${SDL_INCLUDE_DIRS})
+include_directories(${SDL_2_INCLUDE_DIRS})
 link_directories(${SDL_LIBRARY_DIRS})
 
 # Assimp
