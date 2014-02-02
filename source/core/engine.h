@@ -1,8 +1,8 @@
-#ifndef ENGINE_H
-#define ENGINE_H
+#ifndef YGG_ENGINE_H
+#define YGG_ENGINE_H
 
 /**
- * @file Engine.h
+ * @file engine.h
  */
 
 namespace Ygg {
@@ -22,4 +22,4 @@ class Engine
 
 } // end namespace
 
-#endif // ENGINE_H
+#endif // YGG_ENGINE_H
