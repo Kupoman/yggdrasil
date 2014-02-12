@@ -1,6 +1,7 @@
 add_library(core STATIC
+			entity.h
+
 			engine.cpp
+			entity.cpp
 			loader.cpp
 			)
-
-target_link_libraries(core ${ASSIMP_LIBRARIES})

@@ -3,6 +3,8 @@ project(yggdrasil)
 
 set(WINDOWS_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../lib)
 
+set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} -std=c++11)
+
 # SDL
 if(MSVC)
 	set(SDL_2_INCLUDE_DIRS ${WINDOWS_LIB_DIR}/sdl/include)
