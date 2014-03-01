@@ -19,19 +19,21 @@ struct NameExampleComponent
  */
 class NameExampleSystem: public System
 {
+private:
+	std::vector<NameExampleComponent> m_components;
 public:
 	NameExampleSystem() {}
 	virtual ~NameExampleSystem() {}
 
-	void* InitComponents();
+	void Init(class Engine* engine);
 
-	void Convert(std::vector<ConverterData>* cdata, void* components);
+	void Convert(class Engine* engine, std::vector<ConverterData>* cdata);
 
 	/**
 	 * Step the system
 	 * @param dt the timestep
 	 */
-	void Update(float dt, void* components);
+	void Update(class Engine* engine, float dt);
 };
 
 } // end namespace

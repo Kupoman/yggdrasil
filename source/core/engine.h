@@ -36,7 +36,6 @@ public:
 
 private:
 	std::vector<System*> m_systems;
-	std::map<System*, void* > m_components;
 	std::vector<Entity> m_entities;
 };
 

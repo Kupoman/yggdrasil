@@ -18,15 +18,15 @@ class System
 public:
 	virtual ~System() {}
 
-	virtual void* InitComponents()=0;
+	virtual void Init(class Engine* engine)=0;
 
-	virtual void Convert(std::vector<ConverterData>* cdata, void* components)=0;
+	virtual void Convert(class Engine* engine, std::vector<ConverterData>* entity_queue)=0;
 
 	/**
 	 * Step the system
 	 * @param dt the timestep
 	 */
-	virtual void Update(float dt, void* componetns) = 0;
+	virtual void Update(class Engine* engine, float dt) = 0;
 };
 
 } // end namespace

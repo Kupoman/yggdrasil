@@ -5,13 +5,13 @@
 void Ygg::Engine::Update(float dt)
 {
 	for (unsigned int i = 0; i < m_systems.size(); ++i)
-		m_systems[i]->Update(dt, m_components[m_systems[i]]);
+		m_systems[i]->Update(this, dt);
 }
 
 void Ygg::Engine::AddSystem(System *system)
 {
 	m_systems.push_back(system);
-	m_components[system] = system->InitComponents();
+	system->Init(this);
 }
 
 void Ygg::Engine::LoadLevel(const std::string filename)
@@ -21,5 +21,5 @@ void Ygg::Engine::LoadLevel(const std::string filename)
 
 	cdata = loader.LoadScene(filename, &m_entities);
 	for (auto it = m_systems.begin(); it != m_systems.end(); ++it)
-		(*it)->Convert(cdata, m_components[(*it)]);
+		(*it)->Convert(this, cdata);
 }

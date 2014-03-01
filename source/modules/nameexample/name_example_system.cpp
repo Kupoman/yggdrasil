@@ -1,31 +1,27 @@
 #include "name_example_system.h"
+#include "core/engine.h"
 
 #include <iostream>
 
-void *Ygg::NameExampleSystem::InitComponents()
+void Ygg::NameExampleSystem::Init(Engine* engine)
 {
-	return new std::vector<NameExampleComponent>();
 }
 
-void Ygg::NameExampleSystem::Convert(std::vector<ConverterData>* cdata, void* components)
+void Ygg::NameExampleSystem::Convert(Engine* engine, std::vector<ConverterData>* cdata)
 {
-	std::vector<NameExampleComponent>* nes_components = (std::vector<NameExampleComponent>*)components;
-
-	unsigned int last_size = nes_components->size();
-	nes_components->resize(last_size + cdata->size());
+	unsigned int last_size = m_components.size();
+	m_components.resize(last_size + cdata->size());
 
 	for (unsigned int i = 0; i != cdata->size(); ++i)
 	{
 		std::cout << "Converting Object" << std::endl;
-		(*nes_components)[last_size + i] = {"Foo"};
+		m_components[last_size + i] = {"Foo"};
 	}
 }
 
-void Ygg::NameExampleSystem::Update(float dt, void *components)
+void Ygg::NameExampleSystem::Update(Engine* engine, float dt)
 {
-	std::vector<NameExampleComponent>* nes_components = (std::vector<NameExampleComponent>*)components;
-
 	std::cout << "===NameExampleSystem(dt=" << dt << ")===" << std::endl;
-	for (unsigned int i = 0; i != nes_components->size(); ++i)
-		std::cout << (*nes_components)[i].name << std::endl;
+	for (unsigned int i = 0; i != m_components.size(); ++i)
+		std::cout << m_components[i].name << std::endl;
 }
