@@ -9,8 +9,20 @@
 
 namespace Ygg {
 
+struct LightComponent
+{
+	float angle_inner;
+	float angle_outer;
+	float att_constant;
+	float att_linear;
+	float att_quadratic;
+	float color_ambient[3];
+	float color_diffuse[3];
+	float color_specular[3];
+};
+
 /**
- * Base class for systems.
+ * Base class for loader systems.
  */
 class SystemLoader: public System
 {

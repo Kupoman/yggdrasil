@@ -5,15 +5,17 @@
 
 namespace Ygg {
 
-struct AssimpLoaderComponent
+struct AssimpLightComponent
 {
-	std::string name;
+	LightComponent light;
 };
 
 class AssimpLoaderSystem: public SystemLoader
 {
 private:
-	std::vector<AssimpLoaderComponent> m_components;
+	std::vector<AssimpLightComponent> m_light_components;
+
+	int LoadLights(size_t eoffset, std::vector<Entity> *equeue, const aiScene *ascene);
 
 public:
 	AssimpLoaderSystem() {}
