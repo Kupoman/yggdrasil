@@ -1,1 +1,2 @@
 add_subdirectory(nameexample)
+add_subdirectory(assimploader)
