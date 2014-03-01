@@ -3,6 +3,7 @@ add_library(core STATIC
 			entity.h
 			loader.h
 			system.h
+			system_loader.h
 
 			engine.cpp
 			entity.cpp
