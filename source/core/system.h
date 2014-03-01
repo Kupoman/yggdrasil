@@ -5,6 +5,9 @@
  * @file system.h
  */
 
+#include <vector>
+#include "loader.h"
+
 namespace Ygg {
 
 /**
@@ -15,11 +18,15 @@ class System
 public:
 	virtual ~System() {}
 
+	virtual void* InitComponents()=0;
+
+	virtual void Convert(std::vector<ConverterData>* cdata, void* components)=0;
+
 	/**
 	 * Step the system
 	 * @param dt the timestep
 	 */
-	virtual void Update(float dt) = 0;
+	virtual void Update(float dt, void* componetns) = 0;
 };
 
 } // end namespace

@@ -6,10 +6,13 @@
  */
 
 #include <vector>
+#include <map>
+#include <string>
 
 namespace Ygg {
 
 class System;
+class Entity;
 
 /**
  * The core engine.
@@ -29,8 +32,12 @@ public:
 	 */
 	void AddSystem(System *system);
 
+	void LoadLevel(const std::string filename);
+
 private:
 	std::vector<System*> m_systems;
+	std::map<System*, void* > m_components;
+	std::vector<Entity> m_entities;
 };
 
 } // end namespace

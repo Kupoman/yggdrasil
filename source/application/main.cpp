@@ -1,6 +1,8 @@
 #include <iostream>
 
 #include "SDL2/SDL.h"
+#include "core/engine.h"
+#include "modules/nameexample/name_example_system.h"
 
 
 int main(int argc, char **argv)
@@ -26,6 +28,12 @@ int main(int argc, char **argv)
 		return EXIT_FAILURE;
 	}
 
+	Ygg::Engine *engine = new Ygg::Engine();
+	Ygg::NameExampleSystem *system = new Ygg::NameExampleSystem();
+
+	engine->AddSystem(system);
+	engine->LoadLevel("./test.dae");
+
 	SDL_Event event;
 	int quit = 0;
 	while (quit != 1) {
@@ -37,6 +45,8 @@ int main(int argc, char **argv)
 				quit = 1;
 			}
 		}
+
+		engine->Update(0.f);
 	}
 
 	/* Free SDL resources */

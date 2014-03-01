@@ -13,6 +13,8 @@ void Ygg::Loader::AppendData(const std::string &name, const void* data, NodeType
 	Ygg::Entity entity;
 	Ygg::ConverterData cdata;
 
+	printf("Append Data (type=%d, name=%s)\n", type, name.c_str());
+
 	entity_list->push_back(entity);
 	cdata.type = type;
 	cdata.data = data;
