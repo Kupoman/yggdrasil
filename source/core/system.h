@@ -10,6 +10,8 @@
 
 namespace Ygg {
 
+class Engine;
+
 /**
  * Base class for systems.
  */
@@ -18,15 +20,15 @@ class System
 public:
 	virtual ~System() {}
 
-	virtual void Init(class Engine* engine)=0;
+	virtual void Init(Engine* engine)=0;
 
-	virtual void Convert(class Engine* engine, std::vector<ConverterData>* entity_queue)=0;
+	virtual void Convert(Engine* engine, std::vector<ConverterData>* entity_queue)=0;
 
 	/**
 	 * Step the system
 	 * @param dt the timestep
 	 */
-	virtual void Update(class Engine* engine, float dt) = 0;
+	virtual void Update(Engine* engine, float dt) = 0;
 };
 
 } // end namespace

@@ -7,7 +7,10 @@
 
 #include "core/system.h"
 #include <string>
+
 namespace Ygg {
+
+class Engine;
 
 struct NameExampleComponent
 {
@@ -25,15 +28,15 @@ public:
 	NameExampleSystem() {}
 	virtual ~NameExampleSystem() {}
 
-	void Init(class Engine* engine);
+	void Init(Engine* engine);
 
-	void Convert(class Engine* engine, std::vector<ConverterData>* cdata);
+	void Convert(Engine* engine, std::vector<ConverterData>* cdata);
 
 	/**
 	 * Step the system
 	 * @param dt the timestep
 	 */
-	void Update(class Engine* engine, float dt);
+	void Update(Engine* engine, float dt);
 };
 
 } // end namespace
