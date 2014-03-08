@@ -9,7 +9,7 @@
 
 #include "assimploader.h"
 
-void Ygg::AssimpLoaderSystem::Init()
+void Ygg::AssimpLoaderSystem::Init(Engine *engine)
 {
 
 }
@@ -58,6 +58,75 @@ int Ygg::AssimpLoaderSystem::LoadLights(size_t eoffset, std::vector<Entity> *equ
 	return ascene->mNumLights;
 }
 
+int Ygg::AssimpLoaderSystem::ParseMeshNodes(std::vector<Entity> *equeue, aiNode *node)
+{
+	int mesh_count = node->mNumMeshes;
+	int entity_count = 0;
+
+	if (mesh_count) {
+		equeue->resize(equeue->size() + 1);
+		Entity *e = &equeue->back();
+		m_mesh_components.resize(m_mesh_components.size() + 1);
+		MeshComponent *c = &m_mesh_components.back();
+
+		for (unsigned int i = 0; i < node->mNumMeshes; i++) {
+			c->mesh_handles.push_back((int)(node->mMeshes[i]));
+		}
+
+		std::hash<std::string> hash_func;
+		size_t id = hash_func("mesh");
+
+		e->name = std::string(node->mName.C_Str());
+		e->components = new std::map<int, void*>();
+		e->components->insert(std::pair<int, void*>(id, c));
+		entity_count++;
+	}
+
+	for (unsigned int i = 0; i < node->mNumChildren; i++) {
+		entity_count += ParseMeshNodes(equeue, node->mChildren[i]);
+	}
+
+	return entity_count;
+}
+
+int Ygg::AssimpLoaderSystem::LoadMeshes(size_t eoffset, std::vector<Entity> *equeue, const aiScene *ascene)
+{
+	// Gather mesh list
+	size_t moffset = m_meshes.size();
+	m_meshes.resize(ascene->mNumMeshes);
+	Ygg::Mesh *ymesh;
+	aiMesh *amesh;
+	for (unsigned int i = 0; i < ascene->mNumMeshes; i++) {
+		ymesh = &m_meshes[moffset + i];
+		amesh = ascene->mMeshes[i];
+
+		// Vertex positions and normals
+		ymesh->vertices.resize(amesh->mNumVertices);
+		ymesh->normals.resize(amesh->mNumVertices);
+		for (unsigned int j = 0; j < amesh->mNumVertices; j++) {
+			ymesh->vertices[j].x = amesh->mVertices[j].x;
+			ymesh->vertices[j].y = amesh->mVertices[j].y;
+			ymesh->vertices[j].z = amesh->mVertices[j].z;
+
+			ymesh->normals[j].x = amesh->mNormals[j].x;
+			ymesh->normals[j].y = amesh->mNormals[j].y;
+			ymesh->normals[j].z = amesh->mNormals[j].z;
+		}
+
+		// Indices
+		ymesh->indices.resize(amesh->mNumFaces * 3);
+		for (unsigned int j = 0; j < amesh->mNumFaces; j++) {
+			ymesh->indices[3 * j + 0] = amesh->mFaces->mIndices[0];
+			ymesh->indices[3 * j + 1] = amesh->mFaces->mIndices[1];
+			ymesh->indices[3 * j + 2] = amesh->mFaces->mIndices[2];
+		}
+	}
+
+	// Find nodes to convert to entities
+	return ParseMeshNodes(equeue, ascene->mRootNode);
+}
+
+
 void Ygg::AssimpLoaderSystem::LoadResource(Engine *engine, char *name)
 {
 	Assimp::Importer importer;
@@ -82,9 +151,16 @@ void Ygg::AssimpLoaderSystem::LoadResource(Engine *engine, char *name)
 	size_t eoffset = 0;
 
 	eoffset += this->LoadLights(eoffset, &equeue, ascene);
+	m_mesh_components.reserve(10);
+	eoffset += this->LoadMeshes(eoffset, &equeue, ascene);
 }
 
 void Ygg::AssimpLoaderSystem::Update(Engine *engine, float dt)
 {
 
+}
+
+std::vector<Ygg::Mesh> *Ygg::AssimpLoaderSystem::GetMeshes()
+{
+	return &m_meshes;
 }
