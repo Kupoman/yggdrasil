@@ -21,6 +21,31 @@ struct LightComponent
 	float color_specular[3];
 };
 
+typedef unsigned int MeshHandle;
+
+struct DataVec3 {
+	union {
+		float data[3];
+		struct {
+			float x;
+			float y;
+			float z;
+		};
+	};
+};
+
+struct Mesh
+{
+	std::vector<DataVec3> vertices;
+	std::vector<DataVec3> normals;
+	std::vector<unsigned short> indices;
+};
+
+struct MeshComponent
+{
+	std::vector<MeshHandle> mesh_handles;
+};
+
 /**
  * Base class for loader systems.
  */
@@ -29,7 +54,7 @@ class SystemLoader: public System
 public:
 	virtual ~SystemLoader() {}
 
-	virtual void Init()=0;
+	virtual void Init(Engine *engine)=0;
 
 	virtual void Convert(Engine *engine, std::vector<ConverterData> *cdata){};
 
@@ -48,6 +73,12 @@ public:
 	 * @param dt the timestep
 	 */
 	virtual void Update(Engine *engine, float dt) = 0;
+
+	/**
+	 * Get mesh information from the system
+	 * Meshes can be reused and are stored separately from mesh components to avoid data dupilcation
+	 */
+	virtual std::vector<Mesh>* GetMeshes() = 0;
 };
 
 } // end namespace
