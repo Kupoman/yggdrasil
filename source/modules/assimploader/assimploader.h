@@ -3,6 +3,9 @@
 
 #include "core/system_loader.h"
 
+struct aiScene;
+struct aiNode;
+
 namespace Ygg {
 
 struct AssimpLightComponent

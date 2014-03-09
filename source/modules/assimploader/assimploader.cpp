@@ -155,6 +155,8 @@ void Ygg::AssimpLoaderSystem::LoadResource(Engine *engine, char *name)
 
 	eoffset += this->LoadLights(eoffset, &equeue, ascene);
 	eoffset += this->LoadMeshes(eoffset, &equeue, ascene);
+
+	engine->ConvertEntities(&equeue);
 }
 
 void Ygg::AssimpLoaderSystem::Update(Engine *engine, float dt)
