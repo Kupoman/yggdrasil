@@ -12,7 +12,8 @@
 
 void Ygg::AssimpLoaderSystem::Init(Engine *engine)
 {
-
+	std::hash<std::string> hash_func;
+	engine->RegisterComponentHandler(hash_func("mesh"), this);
 }
 
 int Ygg::AssimpLoaderSystem::LoadLights(size_t eoffset, std::vector<Entity> *equeue, const aiScene *ascene)
@@ -167,4 +168,14 @@ void Ygg::AssimpLoaderSystem::Update(Engine *engine, float dt)
 std::vector<Ygg::Mesh> *Ygg::AssimpLoaderSystem::GetMeshes()
 {
 	return &m_meshes;
+}
+
+void *Ygg::AssimpLoaderSystem::GetComponent(size_t type, Ygg::ComponentHandle handle)
+{
+	std::hash<std::string> hash_func;
+
+	if (type == hash_func("mesh"))
+		return &m_mesh_components[handle];
+
+	return NULL;
 }

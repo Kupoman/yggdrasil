@@ -33,6 +33,7 @@ public:
 	void Update(Engine *engine, float dt);
 
 	std::vector<Mesh> *GetMeshes();
+	void *GetComponent(size_t type, ComponentHandle handle);
 };
 
 } // end namespace

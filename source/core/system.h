@@ -6,6 +6,7 @@
  */
 
 #include <vector>
+#include "entity.h"
 
 namespace Ygg {
 
@@ -29,6 +30,8 @@ public:
 	 * @param dt the timestep
 	 */
 	virtual void Update(Engine* engine, float dt) = 0;
+
+	virtual void *GetComponent(size_t type, ComponentHandle handle) {return NULL;}
 };
 
 } // end namespace

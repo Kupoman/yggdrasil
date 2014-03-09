@@ -79,6 +79,9 @@ public:
 	 * Meshes can be reused and are stored separately from mesh components to avoid data dupilcation
 	 */
 	virtual std::vector<Mesh>* GetMeshes() = 0;
+
+
+	virtual void *GetComponent(size_t type, ComponentHandle handle) = 0;
 };
 
 } // end namespace

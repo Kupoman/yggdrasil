@@ -29,6 +29,30 @@ void Ygg::Engine::AddSystem(System *system)
 	system->Init(this);
 }
 
+void Ygg::Engine::RegisterComponentHandler(size_t type, System *system)
+{
+	// ToDo Add some checks here
+	m_handlers[type] = system;
+}
+
+void *Ygg::Engine::GetComponent(Entity *entity, size_t type)
+{
+	// Find the handler
+	System *handler = NULL;
+	auto hit = m_handlers.find(type);
+	if (hit != m_handlers.end())
+		handler = hit->second;
+
+	// Find the component handle
+	auto cit = entity->components.find(type);
+
+	// Now grab the component if we have a handler and a handle
+	if (handler != NULL && cit != entity->components.end())
+		return handler->GetComponent(type, cit->second);
+
+	return NULL;
+}
+
 void Ygg::Engine::LoadLevel(const std::string filename)
 {
 

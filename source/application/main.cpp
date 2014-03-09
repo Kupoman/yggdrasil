@@ -1,9 +1,11 @@
 #include <iostream>
 
-#include "SDL2/SDL.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_syswm.h>
 #include "core/engine.h"
 #include "modules/nameexample/name_example_system.h"
 #include "modules/assimploader/assimploader.h"
+#include "modules/ogrerender/ogrerender.h"
 
 
 int main(int argc, char **argv)
@@ -29,11 +31,29 @@ int main(int argc, char **argv)
 		return EXIT_FAILURE;
 	}
 
+	SDL_SysWMinfo wminfo;
+	SDL_VERSION(&wminfo.version);
+
+	if (SDL_GetWindowWMInfo(window, &wminfo) == SDL_FALSE) {
+		printf("Failed to get WM info: %s\n", SDL_GetError());
+		return EXIT_FAILURE;
+	}
+
+	unsigned long winhandle = 0;
+	if (wminfo.subsystem == SDL_SYSWM_X11)
+			winhandle = wminfo.info.x11.window;
+	// ToDo support win32 and OS X
+	else {
+		printf("Unrecognized WM: %d\n", wminfo.subsystem);
+		return EXIT_FAILURE;
+	}
+
+	{
 	Ygg::Engine engine;
-	Ygg::NameExampleSystem *system = new Ygg::NameExampleSystem();
-	engine.AddSystem(system);
 	Ygg::AssimpLoaderSystem *loader_system = new Ygg::AssimpLoaderSystem();
 	engine.AddSystem(loader_system);
+	Ygg::OgreRenderSystem *system = new Ygg::OgreRenderSystem(winhandle, loader_system);
+	engine.AddSystem(system);
 	loader_system->LoadResource(&engine, "./scene.dae");
 
 	SDL_Event event;
@@ -49,6 +69,7 @@ int main(int argc, char **argv)
 		}
 
 		engine.Update(0.f);
+	}
 	}
 
 	/* Free SDL resources */

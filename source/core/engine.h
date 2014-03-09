@@ -35,13 +35,20 @@ public:
 	 */
 	void AddSystem(System *system);
 
+	void RegisterComponentHandler(size_t type, System *system);
+
+	void *GetComponent(Entity *entity, size_t type);
+
 	void LoadLevel(const std::string filename);
 
 	void ConvertEntities(std::vector<Entity>* new_entities);
 
+
+
 private:
 	std::vector<System*> m_systems;
 	std::vector<Entity> *m_entities;
+	std::map<size_t, System*> m_handlers;
 };
 
 } // end namespace
