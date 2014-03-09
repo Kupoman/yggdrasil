@@ -3,6 +3,7 @@
 #include "SDL2/SDL.h"
 #include "core/engine.h"
 #include "modules/nameexample/name_example_system.h"
+#include "modules/assimploader/assimploader.h"
 
 
 int main(int argc, char **argv)
@@ -30,9 +31,10 @@ int main(int argc, char **argv)
 
 	Ygg::Engine engine;
 	Ygg::NameExampleSystem *system = new Ygg::NameExampleSystem();
-
 	engine.AddSystem(system);
-	engine.LoadLevel("./test.dae");
+	Ygg::AssimpLoaderSystem *loader_system = new Ygg::AssimpLoaderSystem();
+	engine.AddSystem(loader_system);
+	loader_system->LoadResource(&engine, "./scene.dae");
 
 	SDL_Event event;
 	int quit = 0;
