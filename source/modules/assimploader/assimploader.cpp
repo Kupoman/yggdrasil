@@ -119,9 +119,9 @@ int Ygg::AssimpLoaderSystem::LoadMeshes(size_t eoffset, std::vector<Entity> *equ
 		// Indices
 		ymesh->indices.resize(amesh->mNumFaces * 3);
 		for (unsigned int j = 0; j < amesh->mNumFaces; j++) {
-			ymesh->indices[3 * j + 0] = amesh->mFaces->mIndices[0];
-			ymesh->indices[3 * j + 1] = amesh->mFaces->mIndices[1];
-			ymesh->indices[3 * j + 2] = amesh->mFaces->mIndices[2];
+			ymesh->indices[3 * j + 0] = amesh->mFaces[j].mIndices[0];
+			ymesh->indices[3 * j + 1] = amesh->mFaces[j].mIndices[1];
+			ymesh->indices[3 * j + 2] = amesh->mFaces[j].mIndices[2];
 		}
 	}
 
