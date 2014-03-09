@@ -9,6 +9,9 @@
 */
 
 namespace Ygg {
+
+	typedef unsigned int ComponentHandle;
+
 	/**
 	* An entity for an entity component system.
 	*/
@@ -23,22 +26,7 @@ namespace Ygg {
 		/**
 		 * A map of the entity's components.
 		 */
-		std::map<int, void*> *components;
-
-		/**
-		 * Default value constructor.
-		 */
-		Entity();
-
-		/**
-		 * Copy constructor.
-		 */
-		Entity(const Entity& other);
-
-		/**
-		 * Destructor.
-		 */
-		~Entity();
+		std::map<int, ComponentHandle> components;
 
 		/**
 		 * Initializes the component for use.

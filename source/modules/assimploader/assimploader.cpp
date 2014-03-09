@@ -6,6 +6,7 @@
 #include <assimp/postprocess.h>
 
 #include "core/engine.h"
+#include "core/entity.h"
 
 #include "assimploader.h"
 
@@ -26,6 +27,7 @@ int Ygg::AssimpLoaderSystem::LoadLights(size_t eoffset, std::vector<Entity> *equ
 
 	AssimpLightComponent *light_component;
 	aiLight *alight;
+	ComponentHandle chandle;
 
 	for (unsigned int i = 0; i < ascene->mNumLights; i++) {
 		light_component = &m_light_components[coffset + i];
@@ -51,8 +53,8 @@ int Ygg::AssimpLoaderSystem::LoadLights(size_t eoffset, std::vector<Entity> *equ
 		light_component->light.color_specular[2] = alight->mColorSpecular.b;
 
 		(*equeue)[eoffset + i].name = std::string(ascene->mLights[i]->mName.C_Str());
-		(*equeue)[eoffset + i].components = new std::map<int, void*>();
-		(*equeue)[eoffset + i].components->insert(std::pair<int, void*>(id, light_component));
+		chandle = (ComponentHandle) (m_light_components.size() - 1);
+		(*equeue)[eoffset + i].components.insert(std::pair<int, ComponentHandle>(id, chandle));
 	}
 
 	return ascene->mNumLights;
@@ -62,6 +64,7 @@ int Ygg::AssimpLoaderSystem::ParseMeshNodes(std::vector<Entity> *equeue, aiNode 
 {
 	int mesh_count = node->mNumMeshes;
 	int entity_count = 0;
+	ComponentHandle chandle;
 
 	if (mesh_count) {
 		equeue->resize(equeue->size() + 1);
@@ -77,8 +80,8 @@ int Ygg::AssimpLoaderSystem::ParseMeshNodes(std::vector<Entity> *equeue, aiNode 
 		size_t id = hash_func("mesh");
 
 		e->name = std::string(node->mName.C_Str());
-		e->components = new std::map<int, void*>();
-		e->components->insert(std::pair<int, void*>(id, c));
+		chandle = (ComponentHandle)(m_mesh_components.size() - 1);
+		e->components.insert(std::pair<int, ComponentHandle>(id, chandle));
 		entity_count++;
 	}
 
@@ -151,7 +154,6 @@ void Ygg::AssimpLoaderSystem::LoadResource(Engine *engine, char *name)
 	size_t eoffset = 0;
 
 	eoffset += this->LoadLights(eoffset, &equeue, ascene);
-	m_mesh_components.reserve(10);
 	eoffset += this->LoadMeshes(eoffset, &equeue, ascene);
 }
 
