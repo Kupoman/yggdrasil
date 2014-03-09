@@ -130,7 +130,7 @@ int Ygg::AssimpLoaderSystem::LoadMeshes(size_t eoffset, std::vector<Entity> *equ
 }
 
 
-void Ygg::AssimpLoaderSystem::LoadResource(Engine *engine, char *name)
+void Ygg::AssimpLoaderSystem::LoadResource(Engine *engine, const char *name)
 {
 	Assimp::Importer importer;
 	importer.SetPropertyInteger(AI_CONFIG_PP_SLM_VERTEX_LIMIT, 65536);

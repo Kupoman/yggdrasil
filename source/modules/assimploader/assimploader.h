@@ -29,7 +29,7 @@ public:
 	virtual ~AssimpLoaderSystem() {}
 
 	void Init(Engine *engine);
-	void LoadResource(Engine *engine, char *name);
+	void LoadResource(Engine *engine, const char *name);
 	void Update(Engine *engine, float dt);
 
 	std::vector<Mesh> *GetMeshes();

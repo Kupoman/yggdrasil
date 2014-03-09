@@ -64,7 +64,7 @@ public:
 	 * @param engine the engine controlling this system
 	 * @param name the name of the resource
 	 */
-	virtual void LoadResource(Engine *engine, char *name) = 0;
+	virtual void LoadResource(Engine *engine, const char *name) = 0;
 
 	/**
 	 * Step the system
