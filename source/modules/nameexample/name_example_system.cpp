@@ -3,11 +3,13 @@
 
 #include <iostream>
 
+#include "core/entity.h"
+
 void Ygg::NameExampleSystem::Init(Engine* engine)
 {
 }
 
-void Ygg::NameExampleSystem::Convert(Engine* engine, std::vector<ConverterData>* cdata)
+void Ygg::NameExampleSystem::Convert(Engine* engine, std::vector<Entity>* cdata)
 {
 	unsigned int last_size = m_components.size();
 	m_components.resize(last_size + cdata->size());

@@ -56,7 +56,7 @@ public:
 
 	virtual void Init(Engine *engine)=0;
 
-	virtual void Convert(Engine *engine, std::vector<ConverterData> *cdata){};
+	virtual void Convert(Engine *engine, std::vector<Entity> *new_entities){};
 
 	/**
 	 * Open and load data from a resource of the given name

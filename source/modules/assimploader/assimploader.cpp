@@ -54,7 +54,7 @@ int Ygg::AssimpLoaderSystem::LoadLights(size_t eoffset, std::vector<Entity> *equ
 
 		(*equeue)[eoffset + i].name = std::string(ascene->mLights[i]->mName.C_Str());
 		chandle = (ComponentHandle) (m_light_components.size() - 1);
-		(*equeue)[eoffset + i].components.insert(std::pair<int, ComponentHandle>(id, chandle));
+		(*equeue)[eoffset + i].components.insert(std::pair<int, ComponentHandle>((int)id, chandle));
 	}
 
 	return ascene->mNumLights;
@@ -81,7 +81,7 @@ int Ygg::AssimpLoaderSystem::ParseMeshNodes(std::vector<Entity> *equeue, aiNode 
 
 		e->name = std::string(node->mName.C_Str());
 		chandle = (ComponentHandle)(m_mesh_components.size() - 1);
-		e->components.insert(std::pair<int, ComponentHandle>(id, chandle));
+		e->components.insert(std::pair<int, ComponentHandle>((int)id, chandle));
 		entity_count++;
 	}
 

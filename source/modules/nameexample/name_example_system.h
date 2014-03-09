@@ -30,7 +30,7 @@ public:
 
 	void Init(Engine* engine);
 
-	void Convert(Engine* engine, std::vector<ConverterData>* cdata);
+	void Convert(Engine* engine, std::vector<Entity>* cdata);
 
 	/**
 	 * Step the system

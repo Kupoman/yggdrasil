@@ -1,6 +1,11 @@
 #include "engine.h"
 #include "system.h"
-#include "loader.h"
+#include "entity.h"
+
+Ygg::Engine::Engine()
+{
+	m_entities = new std::vector<Entity>();
+}
 
 Ygg::Engine::~Engine()
 {
@@ -8,6 +13,8 @@ Ygg::Engine::~Engine()
 		delete *it;
 
 	m_systems.clear();
+
+	delete m_entities;
 }
 
 void Ygg::Engine::Update(float dt)
@@ -24,10 +31,13 @@ void Ygg::Engine::AddSystem(System *system)
 
 void Ygg::Engine::LoadLevel(const std::string filename)
 {
-	Loader loader = Loader();
-	std::vector<ConverterData>* cdata;
 
-	cdata = loader.LoadScene(filename, &m_entities);
+}
+
+void Ygg::Engine::ConvertEntities(std::vector<Ygg::Entity>* new_entities)
+{
 	for (auto it = m_systems.begin(); it != m_systems.end(); ++it)
-		(*it)->Convert(this, cdata);
+		(*it)->Convert(this, new_entities);
+
+	m_entities->insert(m_entities->end(), new_entities->begin(), new_entities->end());
 }

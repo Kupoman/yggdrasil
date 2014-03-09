@@ -6,11 +6,11 @@
  */
 
 #include <vector>
-#include "loader.h"
 
 namespace Ygg {
 
 class Engine;
+class Entity;
 
 /**
  * Base class for systems.
@@ -22,7 +22,7 @@ public:
 
 	virtual void Init(Engine* engine)=0;
 
-	virtual void Convert(Engine* engine, std::vector<ConverterData>* entity_queue)=0;
+	virtual void Convert(Engine* engine, std::vector<Entity>* new_entities) = 0;
 
 	/**
 	 * Step the system
