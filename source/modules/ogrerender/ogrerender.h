@@ -14,7 +14,6 @@ namespace Ygg {
 
 class Engine;
 class SystemLoader;
-class Mesh;
 
 /**
  * System for using Ogre for rendering.
@@ -38,8 +37,6 @@ private:
 	Ogre::SceneManager *m_scenemgr;
 	Ogre::Camera *m_camera;
 	SystemLoader *m_loader;
-
-	void ConvertMesh(Ygg::Mesh *mdata);
 };
 
 } // end namespace

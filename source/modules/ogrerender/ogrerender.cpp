@@ -79,9 +79,9 @@ void Ygg::OgreRenderSystem::Init(Ygg::Engine *engine)
 	light->setPosition(20, 80, 50);
 }
 
-void Ygg::OgreRenderSystem::ConvertMesh(Ygg::Mesh *mdata)
+static void convert_mesh(const std::string& mname, Ygg::Mesh *mdata)
 {
-	Ogre::MeshPtr mesh = Ogre::MeshManager::getSingleton().createManual("ToDo", "General");
+	Ogre::MeshPtr mesh = Ogre::MeshManager::getSingleton().createManual(mname, "General");
 	Ogre::SubMesh *submesh = mesh->createSubMesh();
 
 	const size_t nverts = mdata->vertices.size();
@@ -164,8 +164,8 @@ void Ygg::OgreRenderSystem::Convert(Ygg::Engine *engine, std::vector<Entity> *en
 		if (mesh_component != NULL)
 		{
 			std::cout << "\tFound Mesh" << std::endl;
-			ConvertMesh(&(*m_loader->GetMeshes())[mesh_component->mesh_handles[0]]);
-			Ogre::Entity *head = m_scenemgr->createEntity("Head", "ToDo");
+			convert_mesh(entity->name, &(*m_loader->GetMeshes())[mesh_component->mesh_handles[0]]);
+			Ogre::Entity *head = m_scenemgr->createEntity(entity->name, entity->name);
 			head->setMaterialName("DefaultMaterial");
 
 			Ogre::SceneNode *headnode = m_scenemgr->getRootSceneNode()->createChildSceneNode();
