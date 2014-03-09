@@ -20,6 +20,8 @@ class Entity;
 class Engine
 {
 public:
+	~Engine();
+
 	/**
 	 * Step the engine.
 	 * @param dt the timestep

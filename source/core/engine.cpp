@@ -2,6 +2,14 @@
 #include "system.h"
 #include "loader.h"
 
+Ygg::Engine::~Engine()
+{
+	for (auto it = m_systems.begin(); it != m_systems.end(); ++it)
+		delete *it;
+
+	m_systems.clear();
+}
+
 void Ygg::Engine::Update(float dt)
 {
 	for (unsigned int i = 0; i < m_systems.size(); ++i)

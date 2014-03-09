@@ -28,11 +28,11 @@ int main(int argc, char **argv)
 		return EXIT_FAILURE;
 	}
 
-	Ygg::Engine *engine = new Ygg::Engine();
+	Ygg::Engine engine;
 	Ygg::NameExampleSystem *system = new Ygg::NameExampleSystem();
 
-	engine->AddSystem(system);
-	engine->LoadLevel("./test.dae");
+	engine.AddSystem(system);
+	engine.LoadLevel("./test.dae");
 
 	SDL_Event event;
 	int quit = 0;
@@ -46,7 +46,7 @@ int main(int argc, char **argv)
 			}
 		}
 
-		engine->Update(0.f);
+		engine.Update(0.f);
 	}
 
 	/* Free SDL resources */
