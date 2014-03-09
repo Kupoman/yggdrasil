@@ -17,7 +17,7 @@ void Ygg::NameExampleSystem::Convert(Engine* engine, std::vector<Entity>* cdata)
 	for (unsigned int i = 0; i != cdata->size(); ++i)
 	{
 		std::cout << "Converting Object" << std::endl;
-		m_components[last_size + i] = {"Foo"};
+		m_components[last_size + i] = {(*cdata)[i].name};
 	}
 }
 
