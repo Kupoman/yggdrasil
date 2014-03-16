@@ -52,11 +52,14 @@ struct MeshComponent
 class SystemLoader: public System
 {
 public:
+	DECLARE_COMPONENTID(MESH);
+	DECLARE_COMPONENTID(LIGHT);
+
 	virtual ~SystemLoader() {}
 
-	virtual void Init(Engine *engine)=0;
+	virtual void Init(Engine *engine);
 
-	virtual void Convert(Engine *engine, std::vector<Entity> *new_entities){};
+	virtual void Convert(Engine *engine, std::vector<Entity> *new_entities){}
 
 	/**
 	 * Open and load data from a resource of the given name

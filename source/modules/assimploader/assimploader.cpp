@@ -12,16 +12,12 @@
 
 void Ygg::AssimpLoaderSystem::Init(Engine *engine)
 {
-	std::hash<std::string> hash_func;
-	engine->RegisterComponentHandler(hash_func("mesh"), this);
+	SystemLoader::Init(engine);
 }
 
 int Ygg::AssimpLoaderSystem::LoadLights(size_t eoffset, std::vector<Entity> *equeue, const aiScene *ascene)
 {
 	size_t coffset = m_light_components.size();
-
-	std::hash<std::string> hash_func;
-	size_t id = hash_func("light");
 
 	m_light_components.resize(coffset + ascene->mNumLights);
 	equeue->resize(eoffset + ascene->mNumLights);
@@ -55,7 +51,7 @@ int Ygg::AssimpLoaderSystem::LoadLights(size_t eoffset, std::vector<Entity> *equ
 
 		(*equeue)[eoffset + i].name = std::string(ascene->mLights[i]->mName.C_Str());
 		chandle = (ComponentHandle) (m_light_components.size() - 1);
-		(*equeue)[eoffset + i].components.insert(std::pair<int, ComponentHandle>((int)id, chandle));
+		(*equeue)[eoffset + i].components.insert(std::pair<int, ComponentHandle>(CID_LIGHT, chandle));
 	}
 
 	return ascene->mNumLights;
@@ -77,12 +73,9 @@ int Ygg::AssimpLoaderSystem::ParseMeshNodes(std::vector<Entity> *equeue, aiNode 
 			c->mesh_handles.push_back((int)(node->mMeshes[i]));
 		}
 
-		std::hash<std::string> hash_func;
-		size_t id = hash_func("mesh");
-
 		e->name = std::string(node->mName.C_Str());
 		chandle = (ComponentHandle)(m_mesh_components.size() - 1);
-		e->components.insert(std::pair<int, ComponentHandle>((int)id, chandle));
+		e->components.insert(std::pair<int, ComponentHandle>(CID_MESH, chandle));
 		entity_count++;
 	}
 
@@ -172,9 +165,7 @@ std::vector<Ygg::Mesh> *Ygg::AssimpLoaderSystem::GetMeshes()
 
 void *Ygg::AssimpLoaderSystem::GetComponent(size_t type, Ygg::ComponentHandle handle)
 {
-	std::hash<std::string> hash_func;
-
-	if (type == hash_func("mesh"))
+	if (type == CID_MESH)
 		return &m_mesh_components[handle];
 
 	return NULL;
