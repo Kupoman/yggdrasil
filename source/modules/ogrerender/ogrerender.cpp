@@ -43,7 +43,7 @@ void Ygg::OgreRenderSystem::Init(Ygg::Engine *engine)
 
 	// Setup the window
 	Ogre::NameValuePairList params;
-	params.insert(std::make_pair("parentWindowHandle", Ogre::StringConverter::toString(m_parentwindow)));
+	params.insert(std::make_pair("externalWindowHandle", Ogre::StringConverter::toString(m_parentwindow)));
 
 	m_window = m_root->createRenderWindow("Yggdrasil", 800, 600, false, &params);
 	m_window->setVisible(true);
