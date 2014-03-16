@@ -163,12 +163,12 @@ void Ygg::OgreRenderSystem::Convert(Ygg::Engine *engine, std::vector<Entity> *en
 		{
 			std::cout << "\tFound Mesh" << std::endl;
 			convert_mesh(entity->name, &(*m_loader->GetMeshes())[mesh_component->mesh_handles[0]]);
-			Ogre::Entity *head = m_scenemgr->createEntity(entity->name, entity->name);
-			head->setMaterialName("DefaultMaterial");
+			Ogre::Entity *ogre_entity = m_scenemgr->createEntity(entity->name, entity->name);
+			ogre_entity->setMaterialName("DefaultMaterial");
 
-			Ogre::SceneNode *headnode = m_scenemgr->getRootSceneNode()->createChildSceneNode();
-			headnode->attachObject(head);
-			headnode->setPosition(0, 0, 0);
+			Ogre::SceneNode *ogre_node = m_scenemgr->getRootSceneNode()->createChildSceneNode();
+			ogre_node->attachObject(ogre_entity);
+			ogre_node->setPosition(0, 0, 0);
 		}
 	}
 }
