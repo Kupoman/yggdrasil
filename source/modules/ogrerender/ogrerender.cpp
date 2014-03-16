@@ -152,15 +152,13 @@ static void convert_mesh(const std::string& mname, Ygg::Mesh *mdata)
 
 void Ygg::OgreRenderSystem::Convert(Ygg::Engine *engine, std::vector<Entity> *entity_queue)
 {
-	std::hash<std::string> hash_func;
-
 	for (auto it = entity_queue->begin(); it != entity_queue->end(); ++it) {
 		Entity *entity = &(*it);
 
 		std::cout << "OGRE: Converting " << entity->name << std::endl;
 
 		// Convert mesh
-		MeshComponent *mesh_component = (MeshComponent*)engine->GetComponent(entity, hash_func("mesh"));
+		MeshComponent *mesh_component = (MeshComponent*)engine->GetComponent(entity, SystemLoader::CID_MESH);
 		if (mesh_component != NULL)
 		{
 			std::cout << "\tFound Mesh" << std::endl;
