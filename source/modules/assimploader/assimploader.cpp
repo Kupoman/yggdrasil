@@ -167,6 +167,8 @@ void *Ygg::AssimpLoaderSystem::GetComponent(size_t type, Ygg::ComponentHandle ha
 {
 	if (type == CID_MESH)
 		return &m_mesh_components[handle];
+	else if (type == CID_LIGHT)
+		return &m_light_components[handle];
 
 	return NULL;
 }

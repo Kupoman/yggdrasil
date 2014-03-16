@@ -159,8 +159,7 @@ void Ygg::OgreRenderSystem::Convert(Ygg::Engine *engine, std::vector<Entity> *en
 
 		// Convert mesh
 		MeshComponent *mesh_component = (MeshComponent*)engine->GetComponent(entity, SystemLoader::CID_MESH);
-		if (mesh_component != NULL)
-		{
+		if (mesh_component != NULL) {
 			std::cout << "\tFound Mesh" << std::endl;
 			convert_mesh(entity->name, &(*m_loader->GetMeshes())[mesh_component->mesh_handles[0]]);
 			Ogre::Entity *ogre_entity = m_scenemgr->createEntity(entity->name, entity->name);
@@ -169,6 +168,16 @@ void Ygg::OgreRenderSystem::Convert(Ygg::Engine *engine, std::vector<Entity> *en
 			Ogre::SceneNode *ogre_node = m_scenemgr->getRootSceneNode()->createChildSceneNode();
 			ogre_node->attachObject(ogre_entity);
 			ogre_node->setPosition(0, 0, 0);
+		}
+
+		// Convert light
+		LightComponent *light_component = (LightComponent*)engine->GetComponent(entity, SystemLoader::CID_LIGHT);
+		if (light_component != NULL) {
+			std::cout << "\tFound Light" << std::endl;
+
+			Ogre::Light *light = m_scenemgr->createLight(entity->name);
+			light->setDiffuseColour(light_component->color_diffuse[0], light_component->color_diffuse[1], light_component->color_diffuse[2]);
+			light->setSpecularColour(light_component->color_specular[0], light_component->color_specular[1], light_component->color_specular[2]);
 		}
 	}
 }
