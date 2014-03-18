@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_config.h>
 #include <SDL2/SDL_syswm.h>
 #include "core/engine.h"
 #include "modules/nameexample/name_example_system.h"
@@ -40,12 +41,27 @@ int main(int argc, char **argv)
 	}
 
 	unsigned long winhandle = 0;
-	if (wminfo.subsystem == SDL_SYSWM_X11)
+	switch(wminfo.subsystem) {
+#if defined(SDL_VIDEO_DRIVER_X11)
+		case SDL_SYSWM_X11:
 			winhandle = wminfo.info.x11.window;
-	// ToDo support win32 and OS X
-	else {
-		printf("Unrecognized WM: %d\n", wminfo.subsystem);
-		return EXIT_FAILURE;
+			break;
+#endif
+#if defined(SDL_VIDEO_DRIVER_WINDOWS)
+		case SDL_SYSWM_WINDOWS:
+			printf("Windows not yet supported!\n");
+			return EXIT_FAILURE;
+			break;
+#endif
+#if defined(SDL_VIDEO_DRIVER_COCOA)
+		case SDL_SYSWM_COCOA:
+			printf("OS X not yet supported!\n");
+			return EXIT_FAILURE;
+			break;
+#endif
+		default:
+			printf("Unrecognized WM: %d\n", wminfo.subsystem);
+			return EXIT_FAILURE;
 	}
 
 	{
